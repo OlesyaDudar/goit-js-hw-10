@@ -53,9 +53,7 @@ breedSelect.addEventListener('change', () => {
         catInfo.innerHTML = `<div><img src="${data[0].url}" alt="${data[0].breeds[0].name}" width="400" /></div>
                 <div><b><h2> ${data[0].breeds[0].name}</h2></b>
                 <p> ${data[0].breeds[0].description}</p>
-                <p><b>Temperament:</b> ${data[0].breeds[0].temperament}</p></div>
-                
-            `;
+                <p><b>Temperament:</b> ${data[0].breeds[0].temperament}</p></div>`;
         changeLoadingStatus();
       })
       .catch(err);
