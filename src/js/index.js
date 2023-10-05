@@ -8,7 +8,6 @@ const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 let arrOptions = [{ text: '', value: '', placeholder: true }];
-let ind = false;
 
 breedSelect.classList.replace('breed-select', 'unloader');
 changeErrorStatus();
@@ -36,7 +35,7 @@ fetchBreeds()
       },
     });
     changeLoadingStatus();
-    ind = true;
+
     breedSelect.classList.replace('unloader', 'breed-select');
   })
   .catch(fnErr);
@@ -50,6 +49,7 @@ function fnErr(err) {
 }
 
 breedSelect.addEventListener('change', () => {
+  changeErrorStatus();
   changeUnLoadingStatus();
   const breedId = breedSelect.value;
   if (breedId !== '') {
