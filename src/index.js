@@ -68,6 +68,7 @@ breedSelect.addEventListener('change', () => {
 function changeLoadingStatus() {
   loader.classList.replace('loader', 'unloader');
 }
+
 function changeUnLoadingStatus() {
   loader.classList.replace('unloader', 'loader');
 }
