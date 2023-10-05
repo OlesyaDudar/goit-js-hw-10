@@ -6,7 +6,7 @@ const API_KEY =
 axios.defaults.headers.common['x-api-key'] = API_KEY;
 
 export function fetchBreeds() {
-  const url = `${BASE_URL}/breeds?api_key`;
+  const url = `${BASE_URL}/brds?api_key`;
   return axios.get(url).then(response => {
     return response.data;
   });

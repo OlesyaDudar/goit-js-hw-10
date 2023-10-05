@@ -8,8 +8,10 @@ const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 let arrOptions = [{ text: '', value: '', placeholder: true }];
+let ind = false;
 
-error.style.display = 'none';
+breedSelect.classList.replace('breed-select', 'unloader');
+changeErrorStatus();
 
 breedSelect.style.color = '#008000';
 breedSelect.style.maxWidth = '400px';
@@ -34,14 +36,17 @@ fetchBreeds()
       },
     });
     changeLoadingStatus();
+    ind = true;
+    breedSelect.classList.replace('unloader', 'breed-select');
   })
-  .catch(err);
+  .catch(fnErr);
 
-function err(err) {
-  if (!arrOptions.placeholder.value) {
-    Notify.failure('Oops! Something went wrong! Try reloading the page!');
-    error.style.display = 'block';
-  }
+function fnErr(err) {
+  // if (!arrOptions.placeholder.value || !ind) {
+  Notify.failure('Oops! Something went wrong! Try reloading the page!');
+  changeUnErrorStatus();
+  changeLoadingStatus();
+  // }
 }
 
 breedSelect.addEventListener('change', () => {
@@ -50,13 +55,13 @@ breedSelect.addEventListener('change', () => {
   if (breedId !== '') {
     fetchCatByBreed(breedId)
       .then(data => {
+        changeLoadingStatus();
         catInfo.innerHTML = `<div><img src="${data[0].url}" alt="${data[0].breeds[0].name}" width="400" /></div>
                 <div><b><h2> ${data[0].breeds[0].name}</h2></b>
                 <p> ${data[0].breeds[0].description}</p>
                 <p><b>Temperament:</b> ${data[0].breeds[0].temperament}</p></div>`;
-        changeLoadingStatus();
       })
-      .catch(err);
+      .catch(fnErr);
   } else {
     changeLoadingStatus();
     catInfo.innerHTML = '';
@@ -69,4 +74,10 @@ function changeLoadingStatus() {
 
 function changeUnLoadingStatus() {
   loader.classList.replace('unloader', 'loader');
+}
+function changeUnErrorStatus() {
+  error.classList.replace('unloader', 'error');
+}
+function changeErrorStatus() {
+  error.classList.replace('error', 'unloader');
 }
